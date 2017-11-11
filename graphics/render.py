@@ -2,7 +2,6 @@ import sys
 sys.path.append('..')
 from physics import Vector2D
 import pygame as pgm
-#from time import clock as clc
 from math import sin, cos
 from physics.charge import Charge, tensity
 from physics.consts import MIN_FORCE, MAX_TRAJ, QRAD, PCOL, NCOL, GREY, twopi
@@ -21,8 +20,6 @@ class render():
         self.step = 0.5
         self.samp_per_ch = 36
         self.ang_incr = twopi/self.samp_per_ch
-        self.proc = 0
-        self.proc_incr = 100/self.amount/self.samp_per_ch
         self.cur_ch = 0
         self.cur_ang = -self.ang_incr
         self.cur_pos = [0, 0]
@@ -30,9 +27,12 @@ class render():
         self.cur_len = 0
         self.inside = True
         self.force = 1
+        self.proc = 0
         if self.amount:
+            self.proc_incr = 100/self.amount/self.samp_per_ch
             self.tracing = True
         else:
+            self.proc_incr = 100
             self.tracing = False
     def check_appr(self):
         self.round_pos = [round(self.cur_pos[0]), round(self.cur_pos[1])]
@@ -59,7 +59,7 @@ class render():
         return True
     def trace(self):
         if self.tracing:
-            if self.cur_ang < twopi:
+            if self.cur_ang <= twopi:
                 self.cur_pos[0] = self.pchs[self.cur_ch].x - (QRAD+1) * cos(self.cur_ang)
                 self.cur_pos[1] = self.pchs[self.cur_ch].y - (QRAD+1) * sin(self.cur_ang)
                 self.cur_ang += self.ang_incr

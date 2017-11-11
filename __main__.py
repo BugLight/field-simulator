@@ -56,5 +56,4 @@ if __name__ == '__main__':
                 screen.blit(tray, (0, 480))
                 pgm.display.update()                
                 rendering = False
-            
     pgm.quit()
