@@ -1,4 +1,9 @@
 from math import pi
+import os
+
+WORKERS_COUNT = int(os.getenv('WORKERS_COUNT'))
+
+twopi = 2*pi
 
 QRAD = 5
 APPR_TOL = QRAD - 1
@@ -8,8 +13,9 @@ MAX_FAR_SQ = MAX_FAR * MAX_FAR
 MAX_TRAJ = 5000
 MIN_FORCE = 0.000001
 
+SAMP_PER_CH = 36
+ANG_INCR = twopi/SAMP_PER_CH
+
 PCOL = (255, 100, 100)
 NCOL = (100, 100, 255)
 GREY = (100, 100, 100)
-
-twopi = 2*pi
